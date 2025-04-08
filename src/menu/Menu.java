@@ -9,35 +9,36 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 import menu.mode.ToolBarAccentColor;
 
-/**
- *
- * @author Raven
- */
 public class Menu extends JPanel {
 
     private final String menuItems[][] = {
-        {"~MAIN~"},
+        
         {"Dashboard"},
-        {"~WEB APP~"},
-        {"Email", "Inbox", "Read", "Compost"},
-        {"Chat"},
-        {"Calendar"},
-        {"~COMPONENT~"},
-        {"Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"},
-        {"Forms", "Basic Elements", "Advanced Elements", "Editors", "Wizard"},
-        {"~OTHER~"},
-        {"Charts", "Apex", "Flot", "Peity", "Sparkline"},
-        {"Icons", "Feather Icons", "Flag Icons", "Mdi Icons"},
-        {"Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"},
+        {"~~"},
+        {"~~"},
+        {"~Master Data~"},
+        {"CPMI", "Data Identitas CPMI", "Keberangkatan CPMI", "Kepulangan CPMI"},
+        {"Laporan", "Laporan Masuk","Laporan Keluar"},
+        {"~~"},
+        {"~~"},
+        {"~~"},
+        {"~Other~"},
+        {"Profile"},
         {"Logout"}
     };
 
@@ -61,11 +62,13 @@ public class Menu extends JPanel {
         }
         lightDarkMode.setMenuFull(menuFull);
         toolBarAccentColor.setMenuFull(menuFull);
+        revalidate();
+        repaint();
     }
 
     private final List<MenuEvent> events = new ArrayList<>();
     private boolean menuFull = true;
-    private final String headerName = "Raven Channel";
+    private final String headerName = "";
 
     protected final boolean hideMenuTitleOnMinimum = true;
     protected final int menuTitleLeftInset = 5;
@@ -76,6 +79,7 @@ public class Menu extends JPanel {
 
     public Menu() {
         init();
+        registerKeyboardShortcut();
     }
 
     private void init() {
@@ -84,13 +88,17 @@ public class Menu extends JPanel {
                 + "border:20,2,2,2;"
                 + "background:$Menu.background;"
                 + "arc:10");
+
         header = new JLabel(headerName);
-        header.setIcon(new ImageIcon(getClass().getResource("/raven/icon/png/logo.png")));
+        updateLogoBasedOnTheme();
+        header.setHorizontalAlignment(JLabel.CENTER);
+        header.setVerticalAlignment(JLabel.CENTER);
+        header.setHorizontalTextPosition(JLabel.CENTER);
+        header.setVerticalTextPosition(JLabel.BOTTOM);
         header.putClientProperty(FlatClientProperties.STYLE, ""
                 + "font:$Menu.header.font;"
                 + "foreground:$Menu.foreground");
 
-        //  Menu
         scroll = new JScrollPane();
         panelMenu = new JPanel(new MenuItemLayout(this));
         panelMenu.putClientProperty(FlatClientProperties.STYLE, ""
@@ -108,6 +116,7 @@ public class Menu extends JPanel {
                 + "thumbInsets:$Menu.scroll.thumbInsets;"
                 + "background:$Menu.ScrollBar.background;"
                 + "thumb:$Menu.ScrollBar.thumb");
+
         createMenu();
         lightDarkMode = new LightDarkMode();
         toolBarAccentColor = new ToolBarAccentColor(this);
@@ -116,6 +125,21 @@ public class Menu extends JPanel {
         add(scroll);
         add(lightDarkMode);
         add(toolBarAccentColor);
+    }
+
+    private void updateLogoBasedOnTheme() {
+        String lafName = UIManager.getLookAndFeel().getName().toLowerCase();
+        boolean isDark = lafName.contains("dark");
+        String logoPath = isDark ? "/raven/icon/png/logo_light.png" : "/raven/icon/png/logo_dark.png";
+        header.setIcon(new ImageIcon(getClass().getResource(logoPath)));
+    }
+
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        if (header != null) {
+            updateLogoBasedOnTheme();
+        }
     }
 
     private void createMenu() {
@@ -209,14 +233,11 @@ public class Menu extends JPanel {
     private ToolBarAccentColor toolBarAccentColor;
 
     private class MenuLayout implements LayoutManager {
+        @Override
+        public void addLayoutComponent(String name, Component comp) {}
 
         @Override
-        public void addLayoutComponent(String name, Component comp) {
-        }
-
-        @Override
-        public void removeLayoutComponent(Component comp) {
-        }
+        public void removeLayoutComponent(Component comp) {}
 
         @Override
         public Dimension preferredLayoutSize(Container parent) {
@@ -244,18 +265,21 @@ public class Menu extends JPanel {
                 int height = parent.getHeight() - (insets.top + insets.bottom);
                 int iconWidth = width;
                 int iconHeight = header.getPreferredSize().height;
-                int hgap = menuFull ? sheaderFullHgap : 0;
+                int hgap = 0;
+
                 int accentColorHeight = 0;
                 if (toolBarAccentColor.isVisible()) {
-                    accentColorHeight = toolBarAccentColor.getPreferredSize().height+gap;
+                    accentColorHeight = toolBarAccentColor.getPreferredSize().height + gap;
                 }
 
                 header.setBounds(x + hgap, y, iconWidth - (hgap * 2), iconHeight);
+                header.setHorizontalAlignment(JLabel.CENTER);
+
                 int ldgap = UIScale.scale(10);
                 int ldWidth = width - ldgap * 2;
                 int ldHeight = lightDarkMode.getPreferredSize().height;
                 int ldx = x + ldgap;
-                int ldy = y + height - ldHeight - ldgap  - accentColorHeight;
+                int ldy = y + height - ldHeight - ldgap - accentColorHeight;
 
                 int menux = x;
                 int menuy = y + iconHeight + gap;
@@ -274,5 +298,16 @@ public class Menu extends JPanel {
                 }
             }
         }
+    }
+
+    private void registerKeyboardShortcut() {
+        InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK), "toggleMenu");
+        getActionMap().put("toggleMenu", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setMenuFull(!isMenuFull());
+            }
+        });
     }
 }
