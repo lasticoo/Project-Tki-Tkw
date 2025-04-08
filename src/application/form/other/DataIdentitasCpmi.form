@@ -27,8 +27,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lb" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="433" max="32767" attributes="0"/>
+              <Component id="lb" pref="448" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -37,7 +37,7 @@
     <Component class="javax.swing.JLabel" name="lb">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Dashboard"/>
+        <Property name="text" type="java.lang.String" value="Data Identitas CPMI Form"/>
       </Properties>
     </Component>
   </SubComponents>

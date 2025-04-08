@@ -17,8 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import application.Application;
 import application.form.other.FormDashboard;
-import application.form.other.FormInbox;
-import application.form.other.FormRead;
+import application.form.other.DataIdentitasCPMI;
+import application.form.other.DataKeberangkatanCPMI;
+import application.form.other.DataKepulanganCPMI;
+import application.form.other.LaporanKeluar;
+import application.form.other.LaporanMasuk;
+import application.form.other.Profile;
 import menu.Menu;
 import menu.MenuAction;
 
@@ -66,27 +70,33 @@ public class MainForm extends JLayeredPane {
         String icon = (getComponentOrientation().isLeftToRight()) ? "menu_left.svg" : "menu_right.svg";
         menuButton.setIcon(new FlatSVGIcon("raven/icon/svg/" + icon, 0.8f));
     }
-
-    private void initMenuEvent() {
-        menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
-            // Application.mainForm.showForm(new DefaultForm("Form : " + index + " " + subIndex));
-            if (index == 0) {
-                Application.showForm(new FormDashboard());
-            } else if (index == 1) {
-                if (subIndex == 1) {
-                    Application.showForm(new FormInbox());
-                } else if (subIndex == 2) {
-                    Application.showForm(new FormRead());
-                } else {
-                    action.cancel();
+    
+private void initMenuEvent() {
+    menu.addMenuEvent((int index, int subIndex, MenuAction action) -> {
+        switch (index) {
+            case 0 -> Application.showForm(new FormDashboard());
+            case 1 -> {
+                switch (subIndex) {
+                    case 1 -> Application.showForm(new DataIdentitasCPMI());
+                    case 2 -> Application.showForm(new DataKeberangkatanCPMI());
+                    case 3 -> Application.showForm(new DataKepulanganCPMI());
+                    default -> action.cancel();
                 }
-            } else if (index == 9) {
-                Application.logout();
-            } else {
-                action.cancel();
             }
-        });
-    }
+            case 2 -> {
+                switch (subIndex) {
+                    case 1 -> Application.showForm(new LaporanMasuk());
+                    case 2 -> Application.showForm(new LaporanKeluar());
+                    default -> action.cancel();
+                }
+            }
+            case 3 -> Application.showForm(new Profile());    
+            case 4 -> Application.logout();
+            default -> action.cancel();
+        }
+    });
+}
+
 
     private void setMenuFull(boolean full) {
         String icon;

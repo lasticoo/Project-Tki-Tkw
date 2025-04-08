@@ -18,7 +18,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lb" pref="794" max="32767" attributes="0"/>
+              <Component id="lb" pref="388" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -27,7 +27,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lb" pref="448" max="32767" attributes="0"/>
+              <Component id="lb" pref="288" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -37,7 +37,7 @@
     <Component class="javax.swing.JLabel" name="lb">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Read"/>
+        <Property name="text" type="java.lang.String" value="KepulanganCPMI"/>
       </Properties>
     </Component>
   </SubComponents>

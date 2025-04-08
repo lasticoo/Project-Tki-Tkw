@@ -6,9 +6,9 @@ import com.formdev.flatlaf.FlatClientProperties;
  *
  * @author Raven
  */
-public class FormInbox extends javax.swing.JPanel {
+public class DataIdentitasCPMI extends javax.swing.JPanel {
 
-    public FormInbox() {
+    public DataIdentitasCPMI() {
         initComponents();
         lb.putClientProperty(FlatClientProperties.STYLE, ""
                 + "font:$h1.font");
@@ -21,7 +21,7 @@ public class FormInbox extends javax.swing.JPanel {
         lb = new javax.swing.JLabel();
 
         lb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb.setText("Inbox");
+        lb.setText("Data Identitas CPMI Form");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

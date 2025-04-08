@@ -1,15 +1,14 @@
 package application.form.other;
 
 import com.formdev.flatlaf.FlatClientProperties;
-import raven.toast.Notifications;
 
 /**
  *
  * @author Raven
  */
-public class FormDashboard extends javax.swing.JPanel {
+public class DataKeberangkatanCPMI extends javax.swing.JPanel {
 
-    public FormDashboard() {
+    public DataKeberangkatanCPMI() {
         initComponents();
         lb.putClientProperty(FlatClientProperties.STYLE, ""
                 + "font:$h1.font");
@@ -22,7 +21,7 @@ public class FormDashboard extends javax.swing.JPanel {
         lb = new javax.swing.JLabel();
 
         lb.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb.setText("Dashboard");
+        lb.setText("KeberangkatanCpmi");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -37,8 +36,8 @@ public class FormDashboard extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lb)
-                .addContainerGap(433, Short.MAX_VALUE))
+                .addComponent(lb, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 

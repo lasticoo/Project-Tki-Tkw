@@ -28,13 +28,13 @@ public class Menu extends JPanel {
 
     private final String menuItems[][] = {
         
+        {"~Main~"},
         {"Dashboard"},
         {"~~"},
         {"~~"},
         {"~Master Data~"},
         {"CPMI", "Data Identitas CPMI", "Keberangkatan CPMI", "Kepulangan CPMI"},
         {"Laporan", "Laporan Masuk","Laporan Keluar"},
-        {"~~"},
         {"~~"},
         {"~~"},
         {"~Other~"},
